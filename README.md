@@ -21,9 +21,9 @@ We take a video from a person(customer), from which data will be separated. The 
 to be fed to a ReID model to get features for the current person. These features are being used for comparison 
 with others' encodings. We are measuring the L2 distance between features for matching.
 
-```math
+
 $L2\left( p,q\right)   = \frac{1}{n} \sqrt {\sum _{i=1}^{n}  \left( p_{i}-q_{i}\right)^2 }$
-```
+
 * p = customer's features
 * q = features to be compared with customer's features
 
