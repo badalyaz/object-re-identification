@@ -1,25 +1,19 @@
 # JeSOS ReID
 
-Project for Customer Re-Identification. 
-
 ### ReID
 <img src="assets/result_ARL_cut_1.gif" width="400"/> <img src="assets/result_ARL_cut_2.gif" width="400"/>
 ### ReID + Kalman
 <img src="assets/result_ARL_kalman_cut_1.gif" width="400"/> <img src="assets/result_ARL_kalman_cut_2.gif" width="400"/>
 
-## Description
-ReID lightweight deep-learning model specializes in learning feature representations for the person. Here, 
-the person's features were presented as a heatmap applied to the body. 
+Person Re-Identification (ReID) is a lightweight deep learning model that specializes in learning feature representations of a person.
+
+Here, the person's features are represented as a heatmap applied to the body. An activation map is computed by taking the sum of absolute-valued feature maps along the channel dimension, 
+followed by a spatial L2 normalization.
 
 <img src="assets/act_map.png" width="200"/>
 
-An activation map is computed by taking the sum of absolute-valued feature maps along the channel dimension, 
-followed by a spatial L2 normalization.
-
-### How the engine is working.
-We take a video from a person(customer), from which data will be separated. The data is then saved, and later 
-to be fed to a ReID model to get features for the current person. These features are being used for comparison 
-with others' encodings. We are measuring the L2 distance between features for matching.
+### How the engine works
+A video of a person is fed to the ReID model to get the features, which are used for comparison with others. The `L2 Distance` is used for feature matching. 
 
 $$
 L2\left( p,q\right)   = \frac{1}{n} \sqrt {\sum _{i=1}^{n}  \left( p_i-q_i \right)^2 }
@@ -31,11 +25,11 @@ $$
 ## Install requirements
 
 ```bash
-  ./setup_env.sh
+./setup_env.sh
 ```
 
 ## ReID model training on custom dataset
-1.Make folder where video data will be uploaded with following folder architecture
+1. Make a folder where video data will be uploaded with the following folder architecture
 
 .path/to/video/folder/
 
@@ -45,7 +39,7 @@ $$
 ├── ...                    
 └── person_n_video
 
-2.Train model with ```train.py``` 
+2. Train model with ```train.py``` 
 #### Training usage
 
 ```
@@ -62,7 +56,7 @@ python3 train.py --name osnet_x1_0 --videos_path /path/to/model --aug_count 5 --
 - Epochs: ```--epochs 30```
 - Evaluation frequency: ```--eval_freq 10```
 - Video data folder path: ```--videos_paths path/to/folder```
-- Take every N-th frame from video: ```--skip_frames 15```
+- Take every N-th frame from the video: ```--skip_frames 15```
 - Augmentations count: ```--aug_count 7```
 - Path to save data: ```--save_path path/to/save```
 
@@ -82,13 +76,13 @@ python3 train.py -h
  
 
 ## Convert model to ONNX
-1.Install ONNX
+1. Install ONNX
 
 ```bash
 pip3 install onnx
 ```
 
-2.Convert using ```reid_to_onnx.py``` script
+2. Convert using ```reid_to_onnx.py``` script
 ```bash
 python3 reid_to_onnx.py --name osnet_x1_0 --nc 3
 ```
@@ -102,12 +96,12 @@ Show help message for all options:
 ```bash
 python3 reid_to_onnx.py -h
 ```
-## Convert model to TensorRT
-1.To convert ReID model to TensorRT, you should first convert the model to ONNX.
+## Convert the model to TensorRT
+1. To convert the ReID model to TensorRT, you should first convert the model to ONNX.
 
-2.Then, install TensorRT Backend For ONNX [onnx-tensorrt](https://github.com/onnx/onnx-tensorrt) library.
+2. Then, install TensorRT Backend For ONNX [onnx-tensorrt](https://github.com/onnx/onnx-tensorrt) library.
 
-3.Run the script below.
+3. Run the script below.
 
 ```bash
 onnx2trt osnet_x1_0.onnx -o osnet_x1_0.trt
@@ -123,7 +117,7 @@ docker run --runtime=nvidia -it --volume /home/ec2-user/reid:/opt/project reid-d
 
 ```ImportError: libcudnn.so.7: cannot open shared object file: No such file or directory```
 
-Run this command in terminal:
+Run this command in the terminal:
 ```
 echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64:\${LD_LIBRARY_PATH}" >> ${HOME}/.bashrc
 ``` 
