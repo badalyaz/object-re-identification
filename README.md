@@ -1,4 +1,5 @@
 # JeSOS ReID
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ### ReID
 <img src="assets/result_ARL_cut_1.gif" width="400"/> <img src="assets/result_ARL_cut_2.gif" width="400"/>
